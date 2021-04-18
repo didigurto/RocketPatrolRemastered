@@ -5,7 +5,7 @@ class Play extends Phaser.Scene{
     }
 
     preload() {
-        this.load.image('starfield', 'assets/sky03.png');
+        this.load.image('starfield', 'assets/sky04.png');
         this.load.image('rocket', 'assets/ikarugarocket.png');
         this.load.image('spaceship', 'assets/ikarugaship.png');
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
@@ -49,8 +49,8 @@ create(){
     //white borders
     //this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
 	//this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
-	this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
-	this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
+	this.add.rectangle(0, 0, borderUISize, game.config.height, 0x000000).setOrigin(0 ,0);
+	this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x000000).setOrigin(0 ,0);
 
     keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -94,7 +94,7 @@ update() {
         this.scene.start("menuScene");
     }
     //moves starfield background
-    this.starfield.tilePositionY += 4;
+    this.starfield.tilePositionY -= 4;
     this.p1Rocket.update();
     
     if(!this.gameOver) {
