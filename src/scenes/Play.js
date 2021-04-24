@@ -8,7 +8,7 @@ class Play extends Phaser.Scene{
         this.load.image('starfield', 'assets/sky04.png');
         this.load.image('rocket', 'assets/ikarugarocket.png');
         this.load.image('spaceship', 'assets/ikarugaship.png');
-        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/explosionSpriteSheet.png', {frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 16});
     }
 
         
@@ -37,7 +37,7 @@ create(){
 
     this.anims.create({
         key: 'explode',
-        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
+        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 16, first: 0}),
         frameRate: 30
         });
 
