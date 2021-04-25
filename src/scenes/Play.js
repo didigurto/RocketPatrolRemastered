@@ -8,7 +8,7 @@ class Play extends Phaser.Scene{
         this.load.image('starfield', 'assets/sky04.png');
         this.load.image('rocket', 'assets/ikarugarocket.png');
         this.load.image('spaceship', 'assets/ikarugaship.png');
-        this.load.spritesheet('explosion', './assets/explosionSpriteSheet.png', {frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 16});
+        this.load.spritesheet('explosionSpriteSheet', './assets/explosionSpriteSheet01.png', {frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 16});
     }
 
         
@@ -34,13 +34,12 @@ create(){
         // animation config
 
     );
-
+    
     this.anims.create({
         key: 'explode',
-        frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 16, first: 0}),
+        frames: this.anims.generateFrameNumbers('explosionSpriteSheet', { start: 0, end: 16, first: 0}),
         frameRate: 30
         });
-
         console.log(this.height);
 
 
@@ -131,7 +130,7 @@ shipExplode(ship) {
     // temporarily hide ship
     ship.alpha = 0;
     // create explosion sprite at ship's position
-    let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+    let boom = this.add.sprite(ship.x - 50, ship.y - 10, 'explosion').setOrigin(0, 0);
     boom.anims.play('explode');             // play explode animation
     boom.on('animationcomplete', () => {    // callback after anim completes
       ship.reset();                         // reset ship position
