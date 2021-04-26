@@ -32,13 +32,13 @@ create(){
     this.ship3 = new Ship(
         this, 425, 100, 'spaceship'
     );
-    
-    // lasers = [];
 
+   
+    // let lasers = [];
     // for (var i = 0; i < lasers.length; i++){
-    //     this.lasers.update();
-    //     this.lasers.show();
+    //     lasers[i].update();
     // }
+ 
 
 
     
@@ -52,7 +52,7 @@ create(){
     
 
     // green UI background
-   this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00,).setOrigin(0,0);
+    //this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00,).setOrigin(0,0);
     //white borders
     //this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
 	//this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
@@ -68,7 +68,7 @@ create(){
     this.p1Score = 0;
       // display score
   let scoreConfig = {
-    fontFamily: 'Courier',
+    fontFamily: 'Times New Roman',
     fontSize: '28px',
     backgroundColor: '#F3B141',
     color: '#843605',
@@ -83,6 +83,7 @@ create(){
 
 //GAME OVER flag 
 this.gameOver = false;
+
 
 // 60-second play clock
 scoreConfig.fixedWidth = 0;
@@ -103,13 +104,14 @@ update() {
     }
 
     if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-        this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding,'laser');
-        //laser.push(laser);
+        this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser');
     }
+    
     //moves starfield background
     this.starfield.tilePositionY -= 4;
     this.p1Rocket.update();
-   
+
+    
     
     if(!this.gameOver) {
         this.ship1.update();

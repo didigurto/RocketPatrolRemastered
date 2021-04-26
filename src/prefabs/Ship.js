@@ -6,7 +6,7 @@ class Ship extends Phaser.GameObjects.Sprite{
     }
 
     update(){
-        this.y += 2;
+        this.y += this.moveSpeed;
         if(this.y > game.config.height){
             this.y = game.config.height - 830;    
         }
