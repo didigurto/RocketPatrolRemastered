@@ -8,6 +8,7 @@ class Play extends Phaser.Scene{
         this.load.image('starfield', 'assets/sky04.png');
         this.load.image('rocket', 'assets/ikarugarocket.png');
         this.load.image('spaceship', 'assets/ikarugaship.png');
+        this.load.image('laser', 'assets/laser.png');
         this.load.spritesheet('explosionSpriteSheet', './assets/explosionSpriteSheet01.png', {frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 16});
     }
 
@@ -30,10 +31,17 @@ create(){
 
     this.ship3 = new Ship(
         this, 425, 100, 'spaceship'
-
-        // animation config
-
     );
+    
+    // lasers = [];
+
+    // for (var i = 0; i < lasers.length; i++){
+    //     this.lasers.update();
+    //     this.lasers.show();
+    // }
+
+
+    
     
     this.anims.create({
         key: 'explode',
@@ -41,7 +49,7 @@ create(){
         frameRate: 30
         });
         console.log(this.height);
-
+    
 
     // green UI background
    this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00,).setOrigin(0,0);
@@ -53,6 +61,7 @@ create(){
 
     keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+    keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
@@ -92,9 +101,15 @@ update() {
     if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)){
         this.scene.start("menuScene");
     }
+
+    if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+        this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding,'laser');
+        //laser.push(laser);
+    }
     //moves starfield background
     this.starfield.tilePositionY -= 4;
     this.p1Rocket.update();
+   
     
     if(!this.gameOver) {
         this.ship1.update();
@@ -143,5 +158,5 @@ shipExplode(ship) {
                this.p1Score += 1;
                this.scoreLeft.text = this.p1Score;  
   }
-  
 }
+
