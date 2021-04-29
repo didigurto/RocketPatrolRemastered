@@ -101,13 +101,13 @@ update() {
     
     if(Phaser.Input.Keyboard.JustDown(keySPACE)){
         this.laser = new Laser(this, this.p1Rocket.x , this.p1Rocket.y, 'laser');
-        this.laser.update();
         lasers.push(this.laser); 
+        this.laser.update();
     }
    
-    for (let i = 0; i < lasers.length; i++){
-        lasers[i].update();
-    } 
+    // for (let i = 0; i < lasers.length; i++){
+    //     lasers[i].update();
+    // } 
 
     //moves starfield background
     this.starfield.tilePositionY -= 4;
