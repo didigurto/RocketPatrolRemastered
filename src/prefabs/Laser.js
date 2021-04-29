@@ -4,20 +4,24 @@ class Laser extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
         this.laserSpeed = 2;
         this.isShooting = false;
-        //this.alpha = 0;
     }
 
-    // show(){
-    //     this.alpha = 1;
-    // }
     update(){
-            this.y -= this.laserSpeed;
-            
-    }
+        this.y -= this.laserSpeed;
+        // if(this.y < borderUISize*3) {
+        //     this.reset();
+        // }
+    
+
+    // if(Phaser.Input.Keyboard.JustDown(keySPACE) && !this.isShooting) {
+    //     this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser');
+    //     this.isShooting = true;
+    // }
 
 }
-    // reset(){
-    //     this.y = game.config.height - 835 ;
-    //     this.alpha = 1;
-    // }
- 
+
+    reset(){
+        this.isShooting = false;
+        // this.alpha = 1;
+    }
+}
