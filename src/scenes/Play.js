@@ -11,7 +11,7 @@ class Play extends Phaser.Scene{
         this.load.image('laser', 'assets/laser.png');
         this.load.spritesheet('explosionSpriteSheet', './assets/explosionSpriteSheet01.png', {frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 16});
     }
-
+    
         
 create(){
     //adding starfield and specifying how much of the image to use as a tile sprite
@@ -32,17 +32,11 @@ create(){
     this.ship3 = new Ship(
         this, 425, 100, 'spaceship'
     );
-
-   
-    // let lasers = [];
-    // for (var i = 0; i < lasers.length; i++){
-    //     lasers[i].update();
-    // }
- 
-
-
     
+    this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser');
+  
     
+
     this.anims.create({
         key: 'explode',
         frames: this.anims.generateFrameNumbers('explosionSpriteSheet', { start: 0, end: 16, first: 0}),
@@ -51,7 +45,7 @@ create(){
         console.log(this.height);
     
 
-    // green UI background
+    //green UI background
     //this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00,).setOrigin(0,0);
     //white borders
     //this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0 ,0);
@@ -95,6 +89,8 @@ this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
 }
 //making starfield scroll by moving and phaser provides a function for it to repeat
 update() {
+    let lasers = [];
+
     if (this.gameOver || Phaser.Input.Keyboard.JustDown(keyR)){
         this.scene.restart();
     }
@@ -102,16 +98,22 @@ update() {
     if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)){
         this.scene.start("menuScene");
     }
-
-    if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-        this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser');
-    }
     
+    if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+        this.laser = new Laser(this, this.p1Rocket.x , this.p1Rocket.y, 'laser');
+        this.laser.update();
+        lasers.push(this.laser); 
+    }
+   
+    for (let i = 0; i < lasers.length; i++){
+        lasers[i].update();
+    } 
+
     //moves starfield background
     this.starfield.tilePositionY -= 4;
     this.p1Rocket.update();
+    this.laser.update();
 
-    
     
     if(!this.gameOver) {
         this.ship1.update();
@@ -132,17 +134,17 @@ update() {
     }
     
 }
-
-checkCollision(rocket, ship) {
-    if( rocket.x + rocket.width > ship.x && 
-        rocket.x < ship.x + ship.width && 
-        rocket.y + rocket.height > ship.y && 
-        rocket.y < ship.y + ship.height){
+checkCollision(laser, ship) {
+    if( this.laser.x + this.laser.width > ship.x && 
+        this.laser.x < ship.x + ship.width && 
+        this.laser.y + this.laser.height > ship.y && 
+        this.laser.y < ship.y + ship.height){
             return true;
         } else  {
             return false;
         }
 }
+
 shipExplode(ship) {
     // temporarily hide ship
     ship.alpha = 0;
