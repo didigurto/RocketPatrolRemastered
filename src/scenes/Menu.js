@@ -9,6 +9,7 @@ preload(){
     this.load.audio('sfx_explosion', './assets/explosionIkaruga.wav');
     this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
     this.load.audio('sfx_laser', './assets/laser_shot02.wav');
+    this.load.audio('sfx_select01', './assets/acceptSelect.wav');
     
 }
 
@@ -30,7 +31,7 @@ create(){
         borderPadding, 'Ikaruga', menuConfig).setOrigin(0.5);
         this.add.text(50, 50, 'Use <--> arrows to move ', menuConfig).setOrigin(0.1);
         menuConfig.color = '#FFFFFF';
-        this.add.text(360, 90, '& (F) to fire', menuConfig).setOrigin(0.1);
+        this.add.text(280, 90, '& (SPACE) to fire', menuConfig).setOrigin(0.1);
         menuConfig.color = '#FFFFFF';
 
         this.add.text(game.config.width/3, 145, 'Press <-- for Novice or ', menuConfig).setOrigin(0.45);
@@ -48,6 +49,7 @@ create(){
             gameTimer: 60000    
           }
           this.sound.play('sfx_select');
+          this.sound.play('sfx_select01');
           this.scene.start('playScene');    
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
@@ -57,6 +59,7 @@ create(){
             gameTimer: 45000    
           }
           this.sound.play('sfx_select');
+          this.sound.play('sfx_select01');
           this.scene.start('playScene');    
         }
       }
