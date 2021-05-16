@@ -10,6 +10,7 @@ class Play extends Phaser.Scene{
         this.load.image('spaceship', 'assets/ikarugaship.png');
         this.load.image('laser', 'assets/laser.png');
         this.load.spritesheet('explosionSpriteSheet', './assets/explosionSpriteSheet01.png', {frameWidth: 100, frameHeight: 100, startFrame: 0, endFrame: 16});
+        
     }
     
         
@@ -33,7 +34,9 @@ create(){
         this, 425, 100, 'spaceship'
     );
     
-    this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser');
+    this.lasers = [];
+
+    //this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser');
   
     
 
@@ -62,10 +65,10 @@ create(){
     this.p1Score = 0;
       // display score
   let scoreConfig = {
-    fontFamily: 'Times New Roman',
+    fontFamily: 'Orbitron',
     fontSize: '28px',
-    backgroundColor: '#F3B141',
-    color: '#843605',
+    //backgroundColor: '#F3B141',
+    color: '#FFFFFF',
     align: 'right',
     padding: {
       top: 5,
@@ -73,7 +76,8 @@ create(){
     },
     fixedWidth: 100
   }
-  this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+  this.scoreLeft = this.add.text(-60, 10, '1P', scoreConfig).setOrigin(0 ,0);
+  this.scoreLeft = this.add.text(-50, 50, this.p1Score, scoreConfig).setOrigin(0 ,0);
 
 //GAME OVER flag 
 this.gameOver = false;
@@ -89,8 +93,6 @@ this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
 }
 //making starfield scroll by moving and phaser provides a function for it to repeat
 update() {
-    let lasers = [];
-
     if (this.gameOver || Phaser.Input.Keyboard.JustDown(keyR)){
         this.scene.restart();
     }
@@ -101,18 +103,28 @@ update() {
     
     if(Phaser.Input.Keyboard.JustDown(keySPACE)){
         this.laser = new Laser(this, this.p1Rocket.x , this.p1Rocket.y, 'laser');
-        lasers.push(this.laser); 
+        this.lasers.push(this.laser); 
         this.laser.update();
+        this.sound.play('sfx_laser');
     }
    
-    // for (let i = 0; i < lasers.length; i++){
-    //     lasers[i].update();
-    // } 
+    for (let i = 0; i < this.lasers.length; i++){
+        this.lasers[i].update();
+        if(this.checkCollision(this.lasers[i], this.ship1)){
+            this.shipExplode(this.ship1);
+        }
+        if(this.checkCollision(this.lasers[i], this.ship2)){
+            this.shipExplode(this.ship2);
+        }
+        if(this.checkCollision(this.lasers[i], this.ship3)){
+            this.shipExplode(this.ship3);
+        }
+    } 
 
     //moves starfield background
     this.starfield.tilePositionY -= 4;
     this.p1Rocket.update();
-    this.laser.update();
+    //this.laser.update();
 
     
     if(!this.gameOver) {
@@ -120,25 +132,22 @@ update() {
         this.ship2.update();
         this.ship3.update();
     }
-    if(this.checkCollision(this.p1Rocket, this.ship1)){
-        this.p1Rocket.reset();
-        this.shipExplode(this.ship1);
-    }
-    if(this.checkCollision(this.p1Rocket, this.ship2)){
-        this.p1Rocket.reset();
-        this.shipExplode(this.ship2);
-    }
-    if(this.checkCollision(this.p1Rocket, this.ship3)){
-        this.p1Rocket.reset();
-        this.shipExplode(this.ship3);
-    }
+    
+    // if(this.checkCollision(this.p1Rocket, this.ship2)){
+    //     this.p1Rocket.reset();
+    //     this.shipExplode(this.ship2);
+    // }
+    // if(this.checkCollision(this.p1Rocket, this.ship3)){
+    //     this.p1Rocket.reset();
+    //     this.shipExplode(this.ship3);
+    // }
     
 }
 checkCollision(laser, ship) {
-    if( this.laser.x + this.laser.width > ship.x && 
-        this.laser.x < ship.x + ship.width && 
-        this.laser.y + this.laser.height > ship.y && 
-        this.laser.y < ship.y + ship.height){
+    if( laser.x + laser.width > ship.x && 
+        laser.x < ship.x + ship.width && 
+        laser.y + laser.height > ship.y && 
+        laser.y < ship.y + ship.height){
             return true;
         } else  {
             return false;

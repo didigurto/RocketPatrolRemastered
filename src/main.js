@@ -19,8 +19,8 @@ So far, I have worked on the project for about 8 hours
 Point Breakdown so far:
   - Create new scrolling tile sprite for the background (5)
   - Create new artwork for all in-game assets(rocket, spaceships,explosions) (20)
+  - Create and implement a new weapon (20)
+
   - Eventual additions:
      - Redesign the game's artwork, UI, and sound to change its theme/aesthetic (60)
-     - Create and implement a new weapon (20)
-
      */

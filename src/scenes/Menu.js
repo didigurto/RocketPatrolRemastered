@@ -5,9 +5,11 @@ class Menu extends Phaser.Scene{
 
 preload(){
     //loadin audio
-    this.load.audio('sfx_select', './assets/blip_select12.wav');
-    this.load.audio('sfx_explosion', './assets/explosion38.wav');
+    this.load.audio('sfx_select', './assets/laser_shot.wav');
+    this.load.audio('sfx_explosion', './assets/explosionIkaruga.wav');
     this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+    this.load.audio('sfx_laser', './assets/laser_shot02.wav');
+    
 }
 
 create(){
@@ -26,11 +28,13 @@ create(){
 
     this.add.text(70, 100 - borderUISize -
         borderPadding, 'Ikaruga', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use <--> arrows to move & (F) to fire', menuConfig).setOrigin(0.5);
-        menuConfig.backgroundColor = '#00FF00';
-        menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize +
-        borderPadding, 'Press <-- for Novice or --> for Expert', menuConfig).setOrigin(0.5);
+        this.add.text(50, 50, 'Use <--> arrows to move ', menuConfig).setOrigin(0.1);
+        menuConfig.color = '#FFFFFF';
+        this.add.text(360, 90, '& (F) to fire', menuConfig).setOrigin(0.1);
+        menuConfig.color = '#FFFFFF';
+
+        this.add.text(game.config.width/3, 145, 'Press <-- for Novice or ', menuConfig).setOrigin(0.45);
+        this.add.text(420, 190, '--> for Expert', menuConfig).setOrigin(0.57);
 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
